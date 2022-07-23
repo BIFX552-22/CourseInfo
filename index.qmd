@@ -1,0 +1,155 @@
+---
+title: "CourseInfo"
+theme: 
+  light: flatly
+  dark: darkly
+---
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(echo = FALSE)
+
+library(knitr)
+library(magrittr)
+```
+
+# Welcome to BIFX 552 - Bioinformatics Data Skills
+
+## Syllabus
+
+### Course Description
+
+This class provides an introduction to applied data science skills needed by bioinformatics professionals. A focus will be placed on reproducible bioinformatics research and will include the following topics and tools: beginning to intermediate use of the Unix command line, working with remote computing resources, version tracking, R and Bioconductor, tools for manipulating sequence data, and creation of pipelines.
+
+-   Instructor: Randall Johnson, PhD
+-   Office hours: Office hours will be held during the times listed below, and the class message board on Microsoft Teams will be monitored frequently throughout the week.
+    -   Mondays at 12:00 - 1:00 PM
+    -   Thursdays immediately after labs.
+-   Prerequisites: BIFX 503
+-   Textbooks: We will not be using a textbook this term, but you may find the following helpful. All are freely available online.
+    -   [R for Data Science](https://r4ds.had.co.nz/)
+    -   [Advanced R](https://adv-r.hadley.nz/)
+    -   [R Packages](https://r-pkgs.org/)
+-   Communications: Course communications will be posted on [Blackboard](https://hood.blackboard.edu) and [Microsoft Teams](https://teams.microsoft.com/l/team/19%3agbXzrtw2Pdri-U6XHzIJZLeOopnCtqc3hUtH8At9qtE1%40thread.tacv2/conversations?groupId=edc6edd8-2142-46b2-b5ab-cfe30e904980&tenantId=a661a969-6db1-4168-a18c-04d87566e044).
+-   Code of Conduct: We want to foster a safe, enjoyable and productive learning environment. People like you add value to our program. To meet this end, all participants will be expected to follow the [course code of conduct](https://github.com/BIFXapps/BIFX552/blob/master/code_of_conduct.md) located in the course documents on Blackboard.
+-   Accessibility: As the instructor of this course, I endeavor to provide an inclusive learning environment. However, if you experience barriers to learning in this course, do not hesitate to discuss them with me and the Office for Accessibility Services, 301-696-3421, gmuer\@hood.edu.
+
+### Learning Objectives
+
+On completion of this course, students should be comfortable with the following:
+
+-   Use of R and Bioconductor to perform bioinformatic analysis tasks
+-   Use of the Unix command line to manipulate data and perform bioinformatic analysis tasks
+-   Logging into and using remote computing resources
+-   Working with version controlled code repositories in a collaborative work environment
+-   Stitching a series of commands and/or programs together into a reusable pipeline
+
+### Coding Demos and In-Class Labs
+
+Recorded coding demos will be provided weekly, and in-class coding labs will be scheduled on Thursday evenings throughout the term at 5:30 PM (unless otherwise specified). Because Bioinformatics is such a fast-moving field, demos and labs will be based on up-to-date, publicly available material from cutting edge experts from the [Data Carpentry](https://datacarpentry.org/) and [Bioconductor](https://bioc2022.bioconductor.org/workshops) communities.
+
+### Homework and Course Project
+
+There will be homework assignments based on each of the weekly coding demos. This will give you an opportunity to practice what we cover each week. Homework will typically be due on Saturday evening.
+
+For the course project, students will have the opportunity to develop an R Shiny app with examples of the material and techniques we will be covering throughout the course. In-class lab time will be devoted to this each week, and the final prject will be due at the end of the course.
+
+### Grading
+
+Grades will be based on completion of homework, quizzes and two exams.
+
+-   Homework - 30%
+-   Class Project - 30%
+-   Mid-term - 20%
+-   Final exam - 20%
+
+Late submissions of any work will be subject to a 5% penalty for each day past the due date. The maximum penalty for late work will be 50%.
+
+### Weather
+
+In the event of severe weather resulting in the closure of Hood College and the cancellation of an in-person lab, the lab will be held virtually at the scheduled time and posted on Blackboard for asynchronous viewing.
+
+### Tentative Class Schedule
+
+An R proficiency quiz will be administered during the first week of class. Depending on how well the class does on this quiz, we may update this schedule.
+
+```{r schedule}
+intro <- '[Class intro](https://BIFX552-22.github.io/CourseInfo)'
+
+proj_org <- '[Project Organization](https://datacarpentry.org/organization-genomics/)'
+
+
+### Shell Genomics
+shell_genomics <- 'https://datacarpentry.org/shell-genomics/'
+shell_intro <- paste0('[Introducing the Shell](', shell_genomics, '01-introduction/index.html)')
+unix1       <- paste0('[Unix 1](',                shell_genomics, ') (2 - 4)')
+unix2       <- paste0('[Unix 2](',                shell_genomics, ') (5 - 6)')
+
+unix_loops  <- 'Loop and Script Practice'
+unix_regexp <- 'Regular Expressions Practice'
+
+### Wrangling Genomics
+wrangling_genomics <- 'https://datacarpentry.org/wrangling-genomics/'
+wrangling       <- paste0('[Data wrangling](',           wrangling_genomics, ') (1 - 3)')
+variant_calling <- paste0('[Variant Calling Workflow](', wrangling_genomics, '04-variant_calling/index.html)')
+
+### Git
+git <- '[Git](https://swcarpentry.github.io/git-novice/) (1 - 13)'
+
+
+### R Gapminder
+gapminder <- 'https://swcarpentry.github.io/r-novice-gapminder/'
+Rintro         <- paste0('[R Intro](',         gapminder, ') (1-3)')
+Rdfs           <- paste0('[Subsetting Data](', gapminder, '06-data-subsetting/index.html)')
+Rcontrol       <- paste0('[R Control Flow](',  gapminder, '07-control-flow/index.html)')
+Rgraphics      <- paste0('[R Graphics](',      gapminder, '08-plot-ggplot2/index.html)')
+Rvectorization <- paste0('[R Vectorization](', gapminder, '09-vectorization/index.html)')
+Rfunctions     <- paste0('[R Functions](',     gapminder, '10-functions/index.html)')
+Rdata          <- paste0('[R Advanced Data](', gapminder, ') (11, 13-14)')
+Rknitr         <- paste0('[R Reports](',       gapminder, '15-knitr-markdown/index.html)')
+RswTips        <- paste0('[R Software Tips](', gapminder, '16-wrap-up/index.html)')
+
+### Other
+slurm <- 'Slurm'
+snakemake <- 'Pipelines with Snakemake'
+
+
+# coding lab ideas for R
+
+# Epidemiology for Bioinformatics: https://bioc2021.bioconductor.org/workshops/paper121/
+# Delayed Array framework: https://bioc2021.bioconductor.org/workshops/paper50/
+# Dimension reduction for beginners: https://bioc2021.bioconductor.org/workshops/paper27/
+# make an R package: https://bioconductor.org/help/course-materials/2019/IISA/RPackages.html
+#                    https://github.com/Bioconductor/BiocIntro/blob/ISSA2019/vignettes/RPackages.Rmd
+# Bioconductor annotation resources: https://bioc2021.bioconductor.org/workshops/paper68/
+# Multi-omic Integration of cBioPortal and TCGA: https://bioc2021.bioconductor.org/workshops/paper40/
+
+matrix(dimnames = list(NULL, c('Week', 'Date', 'Topics', 'Lab')),
+       byrow = TRUE, ncol = 4,
+       data = c( 1, 'Aug 25', paste(intro,
+                                    git,            sep = ', '), 'GitHub / DockerHub',
+                 2, 'Sep  1',       Rintro,                      'R Markdown',
+                 3, 'Sep  8', paste(Rdfs,
+                                    Rcontrol,       sep = ', '), 'R Shiny',
+                 4, 'Sep 15', paste(Rgraphics,
+                                    Rvectorization,
+                                    Rfunctions,     sep = ', '), 'Graphics',
+                 5, 'Sep 22',       Rdata,                       '?',
+                 6, 'Sep 29', paste(Rknitr,
+                                    RswTips,        sep = ', '), 'Exporting Reports',
+                 7, 'Oct  6',      'Exam',                       'Exam review',
+                 8, 'Oct 13', paste(proj_org, 
+                                    shell_intro,    sep = ', '), '?',
+                 9, 'Oct 20',       unix1,                       '?',
+                10, 'Oct 27', paste(unix2,
+                                    unix_loops,     sep = ', '), '?',
+                11, 'Nov  3', paste(unix_regexp,
+                                    slurm,
+                                    wrangling,      sep = ', '), '?',
+                12, 'Nov 10',       variant_calling,             '?',
+                13, 'Nov 17',       snakemake,                   'Pipeline',
+                14, 'Nov 24',      'Thanksgiving',               'No Class',
+                15, 'Dec  1',      'Revew / Final Exam',         'Final Review',
+                16, 'Dec  8',      'Exam Due',                   '')) %>%
+    kable()
+```
