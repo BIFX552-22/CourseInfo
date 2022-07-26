@@ -31,7 +31,7 @@ This class provides an introduction to applied data science skills needed by bio
     -   [Advanced R](https://adv-r.hadley.nz/)
     -   [R Packages](https://r-pkgs.org/)
 -   Communications: Course communications will be posted on [Blackboard](https://hood.blackboard.edu) and [Microsoft Teams](https://teams.microsoft.com/l/team/19%3agbXzrtw2Pdri-U6XHzIJZLeOopnCtqc3hUtH8At9qtE1%40thread.tacv2/conversations?groupId=edc6edd8-2142-46b2-b5ab-cfe30e904980&tenantId=a661a969-6db1-4168-a18c-04d87566e044).
--   Code of Conduct: We want to foster a safe, enjoyable and productive learning environment. People like you add value to our program. To meet this end, all participants will be expected to follow the [course code of conduct](https://github.com/BIFXapps/BIFX552/blob/master/code_of_conduct.md) located in the course documents on Blackboard.
+-   Code of Conduct: We want to foster a safe, enjoyable and productive learning environment. People like you add value to our program. To meet this end, all participants will be expected to follow the [course code of conduct](code_of_conduct.html) located in the course documents on Blackboard.
 -   Accessibility: As the instructor of this course, I endeavor to provide an inclusive learning environment. However, if you experience barriers to learning in this course, do not hesitate to discuss them with me and the Office for Accessibility Services, 301-696-3421, gmuer\@hood.edu.
 
 ### Learning Objectives
@@ -46,13 +46,13 @@ On completion of this course, students should be comfortable with the following:
 
 ### Coding Demos and In-Class Labs
 
-Recorded coding demos will be provided weekly, and in-class coding labs will be scheduled on Thursday evenings throughout the term at 5:30 PM (unless otherwise specified). Because Bioinformatics is such a fast-moving field, demos and labs will be based on up-to-date, publicly available material from cutting edge experts from the [Data Carpentry](https://datacarpentry.org/) and [Bioconductor](https://bioc2022.bioconductor.org/workshops) communities.
+Recorded coding demos will be posted weekly, and in-class coding labs will be scheduled on Thursday evenings throughout the term at 5:30 PM (unless otherwise specified). Because Bioinformatics is such a fast-moving field, demos and labs will be based on up-to-date, publicly available material from experts in the [Data Carpentry](https://datacarpentry.org/) and [Software Carpentry](https://software-carpentry.org/) communities.
 
 ### Homework and Course Project
 
 There will be homework assignments based on each of the weekly coding demos. This will give you an opportunity to practice what we cover each week. Homework will typically be due on Saturday evening.
 
-For the course project, students will have the opportunity to develop an R Shiny app with examples of the material and techniques we will be covering throughout the course. In-class lab time will be devoted to this each week, and the final prject will be due at the end of the course.
+For the course project, students will develop a repository with examples of the material and techniques we will be covering throughout the course, including an R shiny app, a Docker image, and various web pages. In-class lab time will be devoted to this each week, and the final project will be due at the end of the course.
 
 ### Grading
 
@@ -67,11 +67,9 @@ Late submissions of any work will be subject to a 5% penalty for each day past t
 
 ### Weather
 
-In the event of severe weather resulting in the closure of Hood College and the cancellation of an in-person lab, the lab will be held virtually at the scheduled time and posted on Blackboard for asynchronous viewing.
+In the event of severe weather resulting in the closure of Hood College and the cancellation of an in-person lab, the lab will be held virtually at the scheduled time and a recording posted on Blackboard for asynchronous viewing.
 
 ### Tentative Class Schedule
-
-An R proficiency quiz will be administered during the first week of class. Depending on how well the class does on this quiz, we may update this schedule.
 
 ```{r schedule}
 intro <- '[Class intro](https://BIFX552-22.github.io/CourseInfo)'
@@ -128,7 +126,7 @@ matrix(dimnames = list(NULL, c('Week', 'Date', 'Topics', 'Lab')),
        byrow = TRUE, ncol = 4,
        data = c( 1, 'Aug 25', paste(intro,
                                     git,            sep = ', '), 'GitHub / DockerHub',
-                 2, 'Sep  1',       Rintro,                      'R Markdown',
+                 2, 'Sep  1',       Rintro,                      'R Markdown / Quarto',
                  3, 'Sep  8', paste(Rdfs,
                                     Rcontrol,       sep = ', '), 'R Shiny',
                  4, 'Sep 15', paste(Rgraphics,

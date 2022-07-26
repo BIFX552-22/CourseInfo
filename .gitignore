@@ -2,3 +2,5 @@
 .quarto/
 *.Rproj
 .DS_Store
+.Rhistory
+*.mp4
