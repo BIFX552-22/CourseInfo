@@ -1,0 +1,55 @@
+---
+title: "GitHub / DockerHub Lab"
+format: 
+  html:
+    theme: 
+      light: flatly
+      dark: darkly
+  docx:
+    date: Aug 25, 2022
+---
+
+## Agenda
+
+-   Welcome and Introductions
+    -   What do you hope to get from this class?
+    -   What was the last book that you read?
+-   Course Overview
+    -   Blackboard tour
+    -   [GitHub](https://github.com/BIFX552-22) tour
+    -   [Syllabus](https://bifx552-22.github.io/CourseInfo)
+    -   [Code of Conduct](https://bifx552-22.github.io/CourseInfo/code_of_conduct)
+-   Today's lab
+    -   [Course project](https://github.com/BIFX552-22/BIFXproject) tour
+    -   [dockerhub](https://hub.docker.com/) tour
+
+## Course Project
+
+1.  Sign up for [GitHub](https://github.com).
+
+2.  Fork your own copy of the [course project](https://github.com/BIFX552-22/BIFXproject).
+
+3.  Add me as a collaborator. This will make giving feedback and asking/answering questions much easier.
+
+4.  Clone your fork to your local computer. You may find [GitKraken](https://www.gitkraken.com/) useful. You can get a free pro subscription as part of the [Student Developer Pack](https://education.github.com/pack).
+
+5.  Add the BIFX552-22 repository to your local copy.
+
+6.  Add a dev branch to your repository.
+
+## dockerhub
+
+1.  If you don't have Docker already installed, start with [installing Docker](https://docs.docker.com/get-docker/) on your system.
+
+2.  Start up your first Docker image. In the terminal type: `docker run -ti r-base`
+
+3.  Build a local image of your course project.
+
+-   In the terminal go to your repository's root directory and type: `docker build -t BIFXproject .`
+-   Try out your new image with: `docker run -ti BIFXproject`
+
+4.  Update the shiny app included in BIFXproject with code from the [Iris k-means clustering](https://shiny.rstudio.com/gallery/kmeans-example.html) demo app.
+
+5.  Rebuild and test your docker image.
+
+-   hint: Docker is good at remembering what it has already done. Use the `--no-cache` option to force it to use your updated code.

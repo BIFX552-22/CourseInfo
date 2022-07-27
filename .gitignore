@@ -4,3 +4,6 @@
 .DS_Store
 .Rhistory
 *.mp4
+*.docx
+
+/.quarto/
