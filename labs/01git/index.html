@@ -94,19 +94,18 @@ ul.task-list{list-style: none;}
 <ol type="1">
 <li><p>If you don’t have Docker already installed, start with <a href="https://docs.docker.com/get-docker/">installing Docker</a> on your system.</p></li>
 <li><p>Start up your first Docker image. In the terminal type: <code>docker run -ti r-base</code></p></li>
-<li><p>Build a local image of your course project.</p></li>
-</ol>
+<li><p>Build a local image of your course project.</p>
 <ul>
-<li>In the terminal go to your repository’s root directory and type: <code>docker build -t BIFXproject .</code></li>
-<li>Try out your new image with: <code>docker run -ti BIFXproject</code></li>
-</ul>
-<ol start="4" type="1">
+<li>In the terminal go to your repository’s root directory and type: <code>docker build -t bifxproject -f Dockerfile ..</code></li>
+<li>Try out your new image with: <code>docker run --user shiny --rm -p 3838:3838 -t bifxproject</code></li>
+<li>Now open <a href="https://localhost:3838" class="uri">https://localhost:3838</a> in your favorate browser</li>
+</ul></li>
 <li><p>Update the shiny app included in BIFXproject with code from the <a href="https://shiny.rstudio.com/gallery/kmeans-example.html">Iris k-means clustering</a> demo app.</p></li>
-<li><p>Rebuild and test your docker image.</p></li>
-</ol>
+<li><p>Rebuild and test your docker image.</p>
 <ul>
 <li>hint: Docker is good at remembering what it has already done. Use the <code>--no-cache</code> option to force it to use your updated code.</li>
-</ul>
+</ul></li>
+</ol>
 </section>
 
 </main>

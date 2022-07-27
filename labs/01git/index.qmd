@@ -45,11 +45,12 @@ format:
 
 3.  Build a local image of your course project.
 
--   In the terminal go to your repository's root directory and type: `docker build -t BIFXproject .`
--   Try out your new image with: `docker run -ti BIFXproject`
+    -   In the terminal go to your repository's root directory and type: `docker build -t bifxproject -f Dockerfile ..`
+    -   Try out your new image with: `docker run --user shiny --rm -p 3838:3838 -t bifxproject`
+    -   Now open <https://localhost:3838> in your favorate browser
 
 4.  Update the shiny app included in BIFXproject with code from the [Iris k-means clustering](https://shiny.rstudio.com/gallery/kmeans-example.html) demo app.
 
 5.  Rebuild and test your docker image.
 
--   hint: Docker is good at remembering what it has already done. Use the `--no-cache` option to force it to use your updated code.
+    -   hint: Docker is good at remembering what it has already done. Use the `--no-cache` option to force it to use your updated code.
