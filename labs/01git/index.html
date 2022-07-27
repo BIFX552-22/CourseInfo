@@ -86,7 +86,7 @@ ul.task-list{list-style: none;}
 <li><p>Add me as a collaborator. This will make giving feedback and asking/answering questions much easier.</p></li>
 <li><p>Clone your fork to your local computer. You may find <a href="https://www.gitkraken.com/">GitKraken</a> useful. You can get a free pro subscription as part of the <a href="https://education.github.com/pack">Student Developer Pack</a>.</p></li>
 <li><p>Add the BIFX552-22 repository to your local copy.</p></li>
-<li><p>Add a dev branch to your repository.</p></li>
+<li><p>Add a <code>dev</code> branch to your repository.</p></li>
 </ol>
 </section>
 <section id="dockerhub" class="level2">
@@ -94,13 +94,19 @@ ul.task-list{list-style: none;}
 <ol type="1">
 <li><p>If you don’t have Docker already installed, start with <a href="https://docs.docker.com/get-docker/">installing Docker</a> on your system.</p></li>
 <li><p>Start up your first Docker image. In the terminal type: <code>docker run -ti r-base</code></p></li>
+<li><p>Create a Shiny app using the boiler plate code provided by RStudio</p>
+<ul>
+<li>In RStudio use File &gt; New File &gt; Shiny Web App…</li>
+<li>Create your app in the <code>shiny</code> directory of your course project.</li>
+</ul>
+<p><img src="createShinyApp.png" class="img-fluid"></p></li>
 <li><p>Build a local image of your course project.</p>
 <ul>
-<li>In the terminal go to your repository’s root directory and type: <code>docker build -t bifxproject -f Dockerfile ..</code></li>
+<li>In the terminal go to your repository’s root directory and type: <code>docker build -t bifxproject .</code></li>
 <li>Try out your new image with: <code>docker run --user shiny --rm -p 3838:3838 -t bifxproject</code></li>
 <li>Now open <a href="https://localhost:3838" class="uri">https://localhost:3838</a> in your favorate browser</li>
 </ul></li>
-<li><p>Update the shiny app included in BIFXproject with code from the <a href="https://shiny.rstudio.com/gallery/kmeans-example.html">Iris k-means clustering</a> demo app.</p></li>
+<li><p>Add a new shiny app to BIFXproject with code from the <a href="https://shiny.rstudio.com/gallery/kmeans-example.html">Iris k-means clustering</a> demo app.</p></li>
 <li><p>Rebuild and test your docker image.</p>
 <ul>
 <li>hint: Docker is good at remembering what it has already done. Use the <code>--no-cache</code> option to force it to use your updated code.</li>
