@@ -41,18 +41,18 @@ format:
 
 2.  Start up your first Docker image. In the terminal type: `docker run -ti r-base`
 
-3. Create a Shiny app using the boiler plate code provided by RStudio
+3.  Create a Shiny app using the boiler plate code provided by RStudio
 
-    -  In RStudio use File > New File > Shiny Web App...
-    -  Create your app in the `shiny` directory of your course project.
-    
+    -   In RStudio use File \> New File \> Shiny Web App...
+    -   Create your app in the `shiny` directory of your course project.
+
     ![](createShinyApp.png)
 
 4.  Build a local image of your course project.
 
     -   In the terminal go to your repository's root directory and type: `docker build -t bifxproject .`
     -   Try out your new image with: `docker run --user shiny --rm -p 3838:3838 -t bifxproject`
-    -   Now open <https://localhost:3838> in your favorate browser
+    -   Now open [http://localhost:3838](https://localhost:3838){.uri} in your favorate browser
 
 5.  Add a new shiny app to BIFXproject with code from the [Iris k-means clustering](https://shiny.rstudio.com/gallery/kmeans-example.html) demo app.
 
