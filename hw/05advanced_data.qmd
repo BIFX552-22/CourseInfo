@@ -1,0 +1,115 @@
+---
+title: "Homework 5 - Advanced Data in R"
+format: docx
+---
+
+```{r}
+#| include: false
+library(gapminder)
+data(gapminder)
+```
+
+Fill out [this Quarto document](https://github.com/BIFX552-22/CourseInfo/hw/05advanced_data.qmd) while completing the lesson on graphics, vectorization and functions in R.
+
+### [Writing Data](https://swcarpentry.github.io/r-novice-gapminder/11-writing-data/index.html)
+
+::: callout-tip
+## Key Points
+
+-   Save plots from RStudio using the 'Export' button.
+
+-   Use `write.table` to save tabular data.
+:::
+
+#### Challenge 1
+
+Modify the code below to print a second page in the pdf, showing a facet plot (hint: use `facet_grid`) of the same data with one panel per continent.
+
+```{r}
+pdf("Life_Exp_vs_time.pdf", width=12, height=4)
+ggplot(gapminder, aes(year, lifeExp, color=country)) +
+  geom_line() +
+  theme(legend.position = "none")
+
+# You then have to make sure to turn off the pdf device!
+
+dev.off()
+```
+
+#### Challenge 2
+
+Write a data-cleaning script file that subsets the gapminder data to include only data points collected since 1990.
+
+Use this script to write out the new subset to a file in the `cleaned-data/` directory.
+
+```{r}
+# insert code here
+```
+
+### [Data frames with `dplyr`](https://swcarpentry.github.io/r-novice-gapminder/13-dplyr/index.html)
+
+::: callout-tip
+## Key Points
+
+-   Use the `dplyr` package to manipulate data frames.
+-   Use `select()` to choose variables from a data frame.
+-   Use `filter()` to choose data based on values.
+-   Use `group_by()` and `summarize()` to work with subsets of data.
+-   Use `mutate()` to create new variables.
+:::
+
+#### Challenge 1
+
+Write a single command (which can span multiple lines and includes pipes) that will produce a data frame that has the African values for `lifeExp`, `country` and `year`, but not for other Continents. How many rows does your data frame have and why?
+
+```{r}
+# insert code here
+```
+
+#### Challenge 2
+
+Calculate the average life expectancy per country. Which has the longest average life expectancy and which has the shortest average life expectancy?
+
+```{r}
+# insert code here
+```
+
+#### Challenge 3
+
+Calculate the average life expectancy in 2002 of 2 randomly selected countries for each continent. Then arrange the continent names in reverse order. **Hint:** Use the `dplyr` functions `arrange()` and `sample_n()`, they have similar syntax to other dplyr functions.
+
+```{r}
+# insert code here
+```
+
+### [Data frames with `tidyr`](https://swcarpentry.github.io/r-novice-gapminder/14-tidyr/index.html)
+
+::: callout-tip
+## Key Points
+
+-   Use the `tidyr` package to change the layout of data frames.
+
+-   Use `pivot_longer()` to go from wide to longer layout.
+
+-   Use `pivot_wider()` to go from long to wider layout.
+:::
+
+#### Challenge 1
+
+Is gapminder a purely long, purely wide, or some intermediate format?
+
+#### Challenge 2
+
+Using `gap_long`, calculate the mean life expectancy, population, and gdpPercap for each continent. **Hint:** use the `group_by()` and `summarize()` functions we learned in the `dplyr` lesson
+
+```{r}
+# insert code here
+```
+
+#### Challenge 3
+
+Create a `gap_ludicrously_wide` format data by pivoting over countries, year and the 3 metrics? **Hint** this new data frame should only have 5 rows.
+
+```{r}
+# insert code here
+```
