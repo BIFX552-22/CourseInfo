@@ -27,53 +27,53 @@ You can check out these and many other "interesting" results on Tyler Vigen's we
 
 When it comes down to it, if you really want to make a case with data, you can hack your way to a story without too much work. Let's say we want to tell a story about what makes a great data scientist.
 
-* Let's start by sending out a survey to all of our data scientist friends, asking: 
-  * Age
-  * Gender
-  * Favorite color
-  * Shoe size
-  * Hair color
-  * Wedding ring size
-  * Number of milkshakes eaten each month
-  * Distance to the nearest Walmart
-* We'll walk up and down Carroll Creek, asking "random" passersby to respond to the same survey.
-* If we don't find any "significant" correlations, we'll simply come up with some additional questions until we find something that stands out.
+-   Let's start by sending out a survey to all of our data scientist friends, asking:
+    -   Age
+    -   Gender
+    -   Favorite color
+    -   Shoe size
+    -   Hair color
+    -   Wedding ring size
+    -   Number of milkshakes eaten each month
+    -   Distance to the nearest Walmart
+-   We'll walk up and down Carroll Creek, asking "random" passersby to respond to the same survey.
+-   If we don't find any "significant" correlations, we'll simply come up with some additional questions until we find something that stands out.
 
-It will not take long for us to find a story - perhaps we'll discover that drinking as few as three extra beers during each full moon will make us better data scientists! 
-
+It will not take long for us to find a story - perhaps we'll discover that drinking as few as three extra beers during each full moon will make us better data scientists!
 
 ## P-hacking practice
 
 For this part of the lab, we will be using the [p-hacker](https://shinyapps.org/apps/p-hacker/) app developed by Felix Schönbrodt.
 
-1. Start by picking experimental and control groups. For my research, I'd like to find out what makes people good at data science!
-    -  Experimental group: Data scientists
-    -  Control group: Random pedestrian walking down Carroll Creek.
-2. We'll use defaults for the rest of the options. Can you find a random seed that results in something publishable? (For the purposes of this lab, we'll say that anything with a p-value less than 0.05 is publishable.)
+1.  Start by picking experimental and control groups. For my research, I'd like to find out what makes people good at data science!
+    -   Experimental group: Data scientists
+    -   Control group: Random pedestrian walking down Carroll Creek.
+2.  We'll use defaults for the rest of the options. Can you find a random seed that results in something publishable? (For the purposes of this lab, we'll say that anything with a p-value less than 0.05 is publishable.)
 
-:::{.callout-important collapse="true"}
+::: {.callout-important collapse="true"}
 ## Random seed 1521
 
-* DV1 looks pretty good, except there is a pesky outlier at the bottom of the random pedestrian group. Let's drop it, because it looks suspicious.
-* We have acheived significance!
-* Time to publish.
+-   DV1 looks pretty good, except there is a pesky outlier at the bottom of the random pedestrian group. Let's drop it, because it looks suspicious.
+-   We have acheived significance!
+-   Time to publish.
 :::
 
-3. Try some other options and see what interesting results you can come up with.
-    -  Increasing the number of variables (`Number of DV's`) will increase your chances of finding something "interesting".
-    -  A smaller sample size is usually more prone to false positive findings, but try adding a few participants at a time until you get something significant.
-    -  Controlling for different variables (socioeconomic status, age, gender, ...) might help. If it does, great! If not, you can skip that part.
+3.  Try some other options and see what interesting results you can come up with.
+    -   Increasing the number of variables (`Number of DV's`) will increase your chances of finding something "interesting".
+    -   A smaller sample size is usually more prone to false positive findings, but try adding a few participants at a time until you get something significant.
+    -   Controlling for different variables (socioeconomic status, age, gender, ...) might help. If it does, great! If not, you can skip that part.
 
-:::{.callout-important collapse="true"}
+::: {.callout-important collapse="true"}
 ## Random seed 827346
 
-* Number of DV's 10
-* Add 5 new participants.
-* DV3 looks pretty good!
+-   Number of DV's 10
+-   Add 5 new participants.
+-   DV3 looks pretty good!
 :::
 
-:::{.callout-caution}
+::: callout-caution
 ## What *not* to do
+
 These are great examples of how *not* to run a study. While these ideas look pretty egregious, it is surprisingly easy to p-hack. Keeping a watchful eye out for p-hacking will save you grief and wasted time!
 :::
 
@@ -101,3 +101,11 @@ rbinom(10, 1, 0.5)
 OK, if you check the code behind this page, you'll see that I used a very special random seed. It will actually generate 29 heads in a row. The probability of that is approximately `r signif(0.5^29, 2)`, but it doesn't take much work to find one of those special random seeds if you are patient.
 
 Your challenge: Find a random seed that results in at least 10 heads in a row.
+
+Advanced challenge: Create a magic coin shiny app that will allow you to identify a seed that will result in an arbitrary number of heads. I've given you starter code in the original BIFXproject repository.
+
+-   Sync your branch with [BIFXproject](https://github.com/BIFX552-22/BIFXproject).
+
+-   Complete the app.
+
+-   Submit a screenshot of the app running in a web browser (i.e. from your Docker container).
