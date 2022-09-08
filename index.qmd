@@ -1,8 +1,10 @@
 ---
 title: "CourseInfo"
-theme: 
-  light: flatly
-  dark: darkly
+format: 
+  html:
+    theme: 
+      light: flatly
+      dark: darkly
 ---
 
 ```{r}
@@ -147,10 +149,10 @@ matrix(dimnames = list(NULL, c('Week', 'Date', 'Topics', 'Lab')),
                                     Rcontrol,       sep = ', '), '[P-Hacking](labs/03phacking)',
                  4, 'Sep 15', paste(Rgraphics,
                                     Rvectorization,
-                                    Rfunctions,     sep = ', '), 'COVID Data',
+                                    Rfunctions,     sep = ', '),  epi4bioinfo,
                  5, 'Sep 22',       Rdata,                        rna_data, 
                  6, 'Sep 29', paste(Joining,
-                                    RswTips,        sep = ', '),  epi4bioinfo,
+                                    RswTips,        sep = ', '), 'COVID Data',
                  7, 'Oct  6',      'Exam',                       'Exam review',
                  8, 'Oct 13', paste(proj_org, 
                                     shell_intro,
