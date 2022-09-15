@@ -1,0 +1,343 @@
+---
+title: "Epidemiology for Bioinformatics"
+format: revealjs
+editor: visual
+---
+
+## **Motivating example: Smoking and lung cancer**
+
+```{r}
+#| echo: false
+library(dplyr)
+library(ggplot2)
+library(cowplot)
+theme_set(theme_cowplot())
+source('https://tinyurl.com/wjm6ryj')
+```
+
+Though the idea that smoking causes lung cancer is a well-accepted fact these days, it was an incredibly controversial theory in the 1950s and 60s. The statistician RA Fisher (who developed ANOVA, the F-distribution, and more) believed that smoking ***did not*** cause lung cancer, arguing that correlation does not necessarily mean causation.
+
+## Questions to consider during this lab
+
+1.  If you wanted to prove Fisher wrong and demonstrate smoking causes lung cancer, how would you do so?
+
+2.  One of Fisher's main arguments was that there was a genetic factor that was correlated with both smoking behaviors and lung cancer. He argued that this genetic factor was what was truly causing lung cancer in smokers. How would you test this theory?
+
+## Correlation
+
+-   Two variables are *correlated* when there is a relationship between them.
+
+-   In statistics "correlation" usually implies a linear relationship.
+
+-   Exploring correlation of two variables tells us about how the two variables change with relation to each other, but it does not tell us anything about cause and effect.
+
+## Causation
+
+-   An exposure is said to cause an effect when the exposure is either necessary or sufficient for the effect to occur.
+
+-   This is difficult to prove in practice.
+
+-   The "best" tool to establish cause and effect is a randomized trial - other methods take more care and/or more data.
+
+## Counterfactual
+
+-   A condition contrary to fact (eg "450,000 premature deaths in the US due to smoking", compared to a US without smokers).
+
+-   The counterfactual group refers to exposed individuals had they not been exposed, thus differing only by exposure status.
+
+## Counterfactual (example)
+
+-   An ambulance drives by a house with its sirens on. A dog in the house's yard barks.
+
+-   We can ask the causal question in a straightforward way:
+
+    -   **Did the ambulance driving by the house cause the dog to bark?**
+
+-   Alternatively, we can rephrase the question in terms of a counterfactual:
+
+    -   **Would the dog have barked if the ambulance had not driven by the house?**
+
+## Counterfactual (example)
+
+-   Vaccines and blood clots
+
+    -   Does the vaccine increase the risk of blood clots?
+
+    -   Would people have developed blood clots if they had not been given the vaccine?
+
+## Counterfactual (example)
+
+<!--# Group discussion (refer back to examples raised in Intro)-->
+
+-   Using the causal question from Bioinformatics or your field, reframe it in terms of a counterfactual?
+
+<!--# Introduce DAGs here and pick a few examples to draw on the board -->
+
+<!--# Indroduce Mermaid and practice at mermaid.live -->
+
+## Bias
+
+A systematic effect that causes differences between observed results and the reality of the underlying population.
+
+```{r}
+#| echo: false
+set.seed(2879345)
+tibble(x = c(rnorm(30), rnorm(30, 1, 0.5), 0),
+       y = c(rnorm(30), rnorm(30, 1, 0.5), 0),
+       group = c(rep('Unbiased', 30),
+                 rep('Biased', 30),
+                 'True Mean'))%>%
+    
+    ggplot(aes(x, y, color = group, shape = group)) +
+    geom_point(size = 5, alpha = 0.7) +
+    
+    scale_shape_manual(values = c(20,4,20)) +
+    scale_color_manual(values = cbbPalette[c(2,1,3)]) +
+    
+    theme(axis.line = element_blank(),
+          axis.text = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks = element_blank(),
+          legend.title = element_blank())
+```
+
+## Methods to control bias
+
+-   Randomization -- Ensure that exposed and unexposed subjects are comparable at one point in time.
+
+-   Restriction - restrict eligibility for study participation to individuals with one particular level of the confounder. May limit generalizability.
+
+-   Masking -- Endure that subjects are followed and evaluated in a similar manner.
+
+-   Measure the exposure and as many variables that may be associated with the exposure or outcome. A DAG can be a helpful tool for this method.
+
+## Methods to control bias (cont)
+
+-   Matching cases and controls.
+
+-   Control for confounders in your statistical model.
+
+-   Analyze based on intention to treat -- see this [Wikipedia article](https://en.wikipedia.org/wiki/Intention-to-treat_analysis) for a discussion on the pros and cons of this method.
+
+## Bias - caution!
+
+::: callout-caution
+## Confidence intervals *do not* represent uncertainty due to bias
+
+Confidence intervals are a tool to represent uncertainty due to sampling or randomization
+:::
+
+## Types of bias: Confounding
+
+All three conditions must be met:
+
+-   Confounders must cause disease
+
+-   Confounders must be associated with the exposure
+
+-   Confounders may not be affected by the exposure
+
+```{mermaid}
+%%| fig-width: 3
+flowchart LR
+    C1 --> C2
+    C1 --> E
+    C2 --> D
+```
+
+## Types of bias: Confounding (example)
+
+The pathway between the exposure and the outcome through the confounder is called a "backdoor pathway" and it can bias the relationship between the exposure and the outcome you observe.
+
+```{mermaid}
+%%| fig-width: 6
+flowchart LR
+    C1[Sunny Day] --> C2[UV exposure]
+    C1 --> E[Ice cream sales]
+    C2 --> D[Sunburn]
+    E -.- D
+```
+
+<!--# Back to index for more discussion and Exercise 2 -->
+
+## Types of bias: Misclassification / Information Bias
+
+Disease status influences how the exposure is measured.
+
+-   Recall Bias
+
+-   Data Collection Bias (e.g. Interviewer Bias)
+
+## Types of bias: Selection Bias
+
+The measure of association observed in the study sample is different than the measure of association in the source population.
+
+-   Helathy Worker Effect -- Employed people tend to be healthier, live longer, and experience decline of health with time since hire; job assignment (and exposure) may depend on worker health.
+
+-   Diagnostic bias -- Physicians aware of possible associations between exposure and disease follow exposed persons more closely and detect cases earlier.
+
+## Types of bias: Selection Bias (cont)
+
+-   Prevalence bias -- Individuals with the exposure have an extremely short survival time and are not observed when looking at prevalent cases only.
+
+-   Participation bias -- Participation in the study is affected by exposure.
+
+## Types of bias: Collider-Stratification Bias
+
+-   The opening up of a back-door pathway through a collider, by conditioning on the collider.
+-   The problem with collider-stratification bias arises when conditioning on the collider.
+-   This can happen either by how you analyze the data or in how the sample was collected (read more about the obesity paradox and how collider bias might not fully explan this phenomenon).
+
+## Types of bias: Collider-Stratification Bias (cont)
+
+```{mermaid}
+%%| fig-width: 6
+flowchart LR 
+    C --> Co
+    C --> D
+    E --> Co{Collider}
+    Co --> D
+```
+
+## Types of bias: Collider-Stratification Bias (example)
+
+-   [The obesity paradox](https://arxiv.org/abs/1612.06547) comes from the observation that obesity has a positive effect on mortality when conditioning on cardiovascular disease.
+
+-   [Collider bias might not fully explan this phenomenon](https://pubmed.ncbi.nlm.nih.gov/27075676/), but it certainly plays a role.
+
+```{mermaid}
+%%| fig-width: 6
+flowchart LR
+    C[Other factors] --> Co{CVD}
+    C --> D[Mortality]
+    E[Obesity] --> Co
+    Co --> D
+```
+
+## Sensitivity Analysis
+
+-   A common issue in observational studies is that there may be confounders that you are not aware of or did not assess.
+
+-   Unmeasured confounding is a problem with no easy solution as it is effectively a missing data problem--we cannot deconfound for a confounder we have not measured.
+
+-   While not a full solution, one possible method for considering unmeasured confounding is to conduct a [sensitivity analysis](https://rdcu.be/cVEgj).
+
+-   If the effect size is sensitive to potential confounders, we should be more careful in how we interpret our results.
+
+## Sensitivity Analysis (examples)
+
+-   Impact of outliers
+
+-   Impact of non-compliance or protocol deviations
+
+-   Impact of missing data
+
+-   Impact of different definitions of outcomes (e.g. different cut-off points for binary outcomes)
+
+## Sensitivity Analysis (examples)
+
+-   Impact of different methods of analysis (e.g. to account for clustering or correlation)
+
+-   Impact of competing risks in analysis of trials with composite outcomes
+
+-   Impact of baseline imbalance in RCTs
+
+-   Impact of distributional assumptions
+
+## Study designs: RCT
+
+Randomized Control Trials (RCTs)
+
+-   Exposure of interest is assigned at random
+
+-   Because exposure is assigned at random, there are no possible confounders of the relationship between exposure and outcome
+
+-   Considered the gold standard for causal inference
+
+-   Selection bias and information bias are still possible
+
+<!--# Discussion: How can selection bias occur in an RCT? -->
+
+## Study Designs: IV/MR Analysis
+
+Instrumental Variable Analysis/Mendelian Randomization (IV/MR)
+
+-   Attempts to mimic an RCT using a source of pseudorandomization
+
+    -   Before and after implementation of a new government policy
+
+    -   Distance from a medical center
+
+    -   Genetic variants
+
+<!--# What might be some issues with doing IV/MR studies? -->
+
+## Study Designs: Cohort Studies
+
+-   Participants are chosen on a common characteristic (such as occupation, location, or history of a particular disease)
+
+-   They are then followed over time and exposures and outcomes can be assessed
+
+-   Selection bias and confounding can occur
+
+## Study Deisgns: Case-Control Studies
+
+-   Participants are chosen based on having an outcome of interest (cases)
+
+-   Then controls are selected from a similar population to the cases (often matched on age, sex, and other demographic variables)
+
+-   Selection bias and confounding can occur
+
+## Study Designs: GWAS
+
+Genome-Wide Association Study (GWAS)
+
+-   Observational study of phenotypes
+
+-   Often participants are chosen based on a specific phenotype or disease
+
+-   Can be a case-control or a cohort study
+
+<!--# What are some potential sources of confounding or bias in GWAS? -->
+
+## Adjusting for confounders: DESeq2
+
+[DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) uses negative binomial regression, allowing you to deconfound by including the confounder as a variable in the design statement:
+
+```{r, eval = FALSE, echo=TRUE}
+ddsSE <- DESeqDataSet(se, design = ~ exposure + confounder1 + confounder2)
+ddsSE
+```
+
+## Adjusting for confounders: edgeR and limma
+
+You can use `model.matrix()` to specify the exposure and confounders:
+
+```{r, eval = FALSE, echo=TRUE}
+batch <- factor(ds$Batch)
+treat <- factor(ds$tx)
+y <- factor(ds$surv)
+design <- model.matrix(~treat + batch)
+```
+
+Then fit the model either in [edgeR](https://bioconductor.org/packages/release/bioc/html/edgeR.html):
+
+```{r, eval = FALSE, echo=TRUE}
+fit <- glmQLFit(y, design)
+```
+
+Or in [limma](https://bioconductor.org/packages/release/bioc/html/limma.html):
+
+```{r, eval = FALSE, echo=TRUE}
+fit <- lmFit(y, design)
+```
+
+## Adjusting for counfounders:
+
+::: callout-tip
+## Interpretation of estimates
+
+When adjusting for confounders (deconfounding)
+
+-   The observed estimate is an averaged effect size across strata of the confounder(s).
+:::

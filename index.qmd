@@ -114,7 +114,7 @@ Joining              <- paste0('[Joining Tables](',       bioc_intro, '50-joinin
 SummarizedExperiment <- paste0('[SummarizedExperiment](', bioc_intro, '60-next-steps/index.html)')
 
 ### Bioconductor Conference (check each year for updates)
-epi4bioinfo <- '[Epidemiology for bioinformatics](https://bioc2022.bioconductor.org/abstracts/paper43/)'
+epi4bioinfo <- '[Epidemiology for bioinformatics](https://bioc2022.bioconductor.org/abstracts/paper43/)' # changed this one a lot - see `labs/04Epi4Bioinfo`
 bioc_annotation <- '[Bioconductor Annotation](https://bioc2022.bioconductor.org/abstracts/paper25/)'
 single_cell <- '[Single-Cell RNA Anlaysis](https://bioc2022.bioconductor.org/abstracts/paper17/)'
 dimensionality <- '[Dimensionality Reduction](https://bioc2021.bioconductor.org/workshops/paper27/)'
@@ -147,10 +147,10 @@ matrix(dimnames = list(NULL, c('Week', 'Date', 'Topics', 'Lab')),
                                     Rcontrol,       sep = ', '), '[P-Hacking](labs/03phacking)',
                  4, 'Sep 15', paste(Rgraphics,
                                     Rvectorization,
-                                    Rfunctions,     sep = ', '), 'COVID Data',
-                 5, 'Sep 22',       Rdata,                        rna_data, 
+                                    Rfunctions,     sep = ', '), '[Epi 4 Bioinfo](labs/04Epi4Bioinfo)',
+                 5, 'Sep 22',       Rdata,                       'COVID Data',
                  6, 'Sep 29', paste(Joining,
-                                    RswTips,        sep = ', '),  epi4bioinfo,
+                                    RswTips,        sep = ', '),  rna_data,
                  7, 'Oct  6',      'Exam',                       'Exam review',
                  8, 'Oct 13', paste(proj_org, 
                                     shell_intro,
