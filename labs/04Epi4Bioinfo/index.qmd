@@ -213,6 +213,18 @@ After adjusting for confounding by age and gender, we found that colorectal canc
 -   How could we design a better study to account for these biases?
 :::
 
+## Back to Fisher
+
+At the beginning of the [presentation](presentation.html) we talked a little about RA Fisher and the causal link between smoking and lung cancer.
+
+::: callout-tip
+## Discussion
+
+-   If you wanted to prove Fisher wrong and demonstrate smoking causes lung cancer, how would you do so?
+
+-   One of Fisher's main arguments was that there was a genetic factor that was correlated with both smoking behaviors and lung cancer. He argued that this genetic factor was what was truly causing lung cancer in smokers. How would you test this theory?
+:::
+
 ## Further food for thought
 
 1.  Often in our work, we are presented with data that have already been collected and we are asked to analyze it. Other times we have the privilege of designing a study from scratch. And some times we are brought in when the analyses are nearly done for a paper and just asked for our feedback.
