@@ -7,9 +7,16 @@ format: docx
 #| include: false
 library(gapminder)
 data(gapminder)
+
+library(ggplot2)
+library(cowplot)
+theme_set(theme_cowplot())
+
+library(dplyr)
+library(tidyr)
 ```
 
-Fill out [this Quarto document](https://github.com/BIFX552-22/CourseInfo/hw/05advanced_data.qmd) while completing the lesson on graphics, vectorization and functions in R.
+Fill out [this Quarto document](https://github.com/BIFX552-22/CourseInfo/hw/05advanced_data.qmd) while completing the lesson on writing data, `dplyr` and `tidyr`.
 
 ### [Writing Data](https://swcarpentry.github.io/r-novice-gapminder/11-writing-data/index.html)
 
@@ -97,6 +104,39 @@ Calculate the average life expectancy in 2002 of 2 randomly selected countries f
 #### Challenge 1
 
 Is gapminder a purely long, purely wide, or some intermediate format?
+
+#### gap_wide vs gap_long vs gapminder
+
+The `gap_wide` data set is formatted such that there is only one row per country.
+
+```{r}
+library(readr)
+gap_wide <- read_csv('https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_wide.csv')
+
+gap_wide
+```
+
+The `gap_long` data set is formatted such that there is one row per data point.
+
+```{r}
+gap_long <- gap_wide %>%
+  pivot_longer(
+    cols = c(starts_with('pop'), 
+             starts_with('lifeExp'),
+             starts_with('gdpPercap')),
+    names_to = "obstype_year", 
+    values_to = "obs_values") %>%
+    
+    separate(obstype_year, into = c('obstype', 'year'), sep = '_')
+
+gap_long
+```
+
+Both formats cover the extreme ends of the spectrum of how we could format this in a tidy way. The intermediate format provided by `data(gapminder)` is probably more useful in most situations.
+
+```{r}
+gapminder
+```
 
 #### Challenge 2
 
