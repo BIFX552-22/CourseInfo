@@ -5,5 +5,7 @@
 .Rhistory
 *.mp4
 *.docx
+*.csv
+*.RData
 
 /.quarto/
