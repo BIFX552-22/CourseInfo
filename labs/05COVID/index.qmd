@@ -45,15 +45,16 @@ What is presented here is intentionally rough and open ended. After filling in t
 
 ```{r}
 #| echo: false
-# download data if we haven't already
-if(!file.exists('sisver_public.csv'))
+# download data if we need to refresh
+# note that the current link below has some changes to the data since this lesson was developed! There are at least 4 variable name changes, and the number of rows is also different. I'm pushing the current version of the small RData file for now, but be aware that there will be some updates to the code needed if we do a refresh. Go to https://bit.ly/3Ou4n2U for updated data.
+if(FALSE)
 {
     download.file(url = "https://archivo.datos.cdmx.gob.mx/sisver/covid19_sisver_cdmx.csv",
               destfile = "sisver_public.csv")
 }
 
 # only do this formatting step once
-if(!file.exists('sisver.RData'))
+if(FALSE)
 {
     sisver <- read_csv('sisver_public.csv') %>%
         rename(dt_symptoms = fecinisi, # date that symptoms started
