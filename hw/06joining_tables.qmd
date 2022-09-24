@@ -15,6 +15,7 @@ if(FALSE)
 }
 
 library("rWSBIM1207")
+data(jdf)
 ```
 
 ### [Joining Tables](https://carpentries-incubator.github.io/bioc-intro/50-joining-tables/index.html)
