@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>RNA-seq Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="rna-seq-data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="rna-seq-data_files/libs/quarto-html/quarto.js"></script>
+<script src="rna-seq-data_files/libs/quarto-html/popper.min.js"></script>
+<script src="rna-seq-data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="rna-seq-data_files/libs/quarto-html/anchor.min.js"></script>
+<link href="rna-seq-data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="rna-seq-data_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="rna-seq-data_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="rna-seq-data_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="rna-seq-data_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">RNA-seq Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-inclue="false">
+
+</div>
+<p>Note: this lab borrows heavily from a <a href="https://carpentries-incubator.github.io/bioc-intro/40-visualization/index.html">Carpentries incubator module on visualization</a>.</p>
+<section id="rna-seq-data" class="level2">
+<h2 class="anchored" data-anchor-id="rna-seq-data">RNA-Seq data</h2>
+<p>To start out with, let’s explore the data provided:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32,428 × 20
+   gene    sample  expre…¹ organ…²   age sex   infec…³ strain  time tissue mouse
+   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+ 1 Asl     GSM254…    1170 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+ 2 Apod    GSM254…   36194 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+ 3 Cyp2d22 GSM254…    4060 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+ 4 Klk6    GSM254…     287 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+ 5 Fcrls   GSM254…      85 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+ 6 Slc2a4  GSM254…     782 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+ 7 Exd2    GSM254…    1619 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+ 8 Gjc2    GSM254…     288 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+ 9 Plp1    GSM254…   43217 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+10 Gnb4    GSM254…    1071 Mus mu…     8 Fema… Influe… C57BL…     8 Cereb…    14
+# … with 32,418 more rows, 9 more variables: ENTREZID &lt;dbl&gt;, product &lt;chr&gt;,
+#   ensembl_gene_id &lt;chr&gt;, external_synonym &lt;chr&gt;, chromosome_name &lt;chr&gt;,
+#   gene_biotype &lt;chr&gt;, phenotype_description &lt;chr&gt;,
+#   hsapiens_homolog_associated_gene_name &lt;chr&gt;, l2exp &lt;dbl&gt;, and abbreviated
+#   variable names ¹​expression, ²​organism, ³​infection</code></pre>
+</div>
+</div>
+<p>Take a look at the distribution of the expression levels:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The data should be transformed. Transforming on the <span class="math inline">\(\log_{10}\)</span> scale is easy in <code>ggplot2</code>,</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>but we often use a <span class="math inline">\(log_2\)</span> scale when looking at expression data:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="building-plots-iteratively" class="level3">
+<h3 class="anchored" data-anchor-id="building-plots-iteratively">Building plots iteratively</h3>
+<p>We will now draw a scatter plot with two continuous variables and the <code>geom_point()</code> function. This graph will represent the <span class="math inline">\(\log_2\)</span> fold changes of expression comparing time 8 versus time 0, and time 4 versus time 0. To this end, we first need to compute the means of the log-transformed expression values by gene and time, then the log fold changes by subtracting the mean log expressions between time 8 and time 0 and between time 4 and time 0.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We could also add color, but it begins to get a little messy with the large number of categories we have.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Over-plotting can be an issue with large datasets like this. One solution is using <code>hexbin:geom_hex()</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="box-plots" class="level3">
+<h3 class="anchored" data-anchor-id="box-plots">Box plots</h3>
+<p>We can use boxplots to visualize the distribution of gene expressions within each sample:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Adding points to box plots can give us a better understanding of the underlying distributions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We could also use <code>geom_violin</code> to better see the distribution of points. Try coloring the points by <code>time</code> as well.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="line-plots" class="level3">
+<h3 class="anchored" data-anchor-id="line-plots">Line plots</h3>
+<p>Let’s calculate the mean expression per duration of the infection for the 10 genes having the highest log fold changes comparing time 8 versus time 0. We can do this either by coloring each gene or using <code>facet_wrap</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Now we would like to split the line in each plot by the sex of the mice.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Let’s do something similar and create a plot that depicts how the average expression of each chromosome changes through the duration of infection.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The <code>facet_wrap</code> geometry extracts plots into an arbitrary number of dimensions to allow them to cleanly fit on one page. On the other hand, the <code>facet_grid</code> geometry allows you to explicitly specify how you want your plots to be arranged via formula notation (<code>rows ~ columns</code>; a <code>.</code> can be used as a placeholder that indicates only one row or column).</p>
+<p>Let’s modify the previous plot to compare how the mean gene expression of males and females has changed through time:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="rna-seq-data_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
