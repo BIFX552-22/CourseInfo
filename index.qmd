@@ -82,8 +82,8 @@ proj_org <- '[Project Organization](https://datacarpentry.org/organization-genom
 ### Shell Genomics
 shell_genomics <- 'https://datacarpentry.org/shell-genomics/'
 shell_intro <- paste0('[Introducing the Shell](', shell_genomics, '01-introduction/index.html)')
-unix1       <- paste0('[Unix](',                  shell_genomics, ') (2 - 4)')
-unix2       <- paste0('[Advanced Unix](',         shell_genomics, ') (5 - 6)')
+unix1       <- paste0('[Unix](',                  shell_genomics, ') (2 - 3)')
+unix2       <- paste0('[Advanced Unix](',         shell_genomics, ') (4 - 6)')
 
 unix_loops  <- 'Loop and Script Practice'
 unix_regexp <- 'Regular Expressions Practice'
@@ -153,17 +153,19 @@ matrix(dimnames = list(NULL, c('Week', 'Date', 'Topics', 'Lab')),
                  5, 'Sep 22',       Rdata,                       '[COVID Data](labs/05COVID)',
                  6, 'Sep 29', paste(Joining,
                                     RswTips,        sep = ', '), '[RNA-Seq Data](labs/06RNA-seq-data/rna-seq-data.html)',
-                 7, 'Oct  6',      'Exam',                       'Exam review',
-                 8, 'Oct 13', paste(proj_org, 
-                                    shell_intro,
-                                    unix1, sep = ', '),           unix2,
-                 9, 'Oct 20',       wrangling,                    variant_calling,
-                10, 'Oct 27',       bioc_proj,                    bioc_annotation,
-                11, 'Nov  3',       RNA_seq_setup,                RNA_seq_analysis,
-                12, 'Nov 10',       dimensionality,               single_cell,
+                 7, 'Oct  6',      'Exam',                       'Midterm Exam',
+                 8, 'Oct 13', paste(shell_intro,
+                                    unix1, sep = ', '),    paste('Exam review',
+                                                                  proj_org),
+                 9, 'Oct 20',       unix2,                        dimensionality,
+                10, 'Oct 27',       wrangling,                    variant_calling,
+                11, 'Nov  3',       bioc_proj,                    bioc_annotation,
+                12, 'Nov 10',       RNA_seq_setup,                RNA_seq_analysis,
                 13, 'Nov 17',       snakemake1,                  'Snakemake Pipeline',
                 14, 'Nov 24',       snakemake2,                  'Thanksgiving, No Class',
                 15, 'Dec  1',      'Revew / Final Exam',         'Final Review',
                 16, 'Dec  8',      'Exam Due',                   '')) %>%
     kable()
+
+# single_cell,
 ```
