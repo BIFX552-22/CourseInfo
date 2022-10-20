@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Intro to Snakemake</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Intro to Snakemake</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>This lab borrows heavily from the Carpentries incubator lesson, <a href="https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/">Snakemake for Bioinformatics</a>. You can follow along there</p>
+<section id="installation-and-setup" class="level2">
+<h2 class="anchored" data-anchor-id="installation-and-setup">Installation and Setup</h2>
+<section id="snakemake" class="level3">
+<h3 class="anchored" data-anchor-id="snakemake">Snakemake</h3>
+<p>Snakemake is available on the Hood cluster, but it is often helpful to have a local installation for development and troubleshooting. Follow <a href="https://snakemake.readthedocs.io/en/stable/getting_started/installation.html">these installation instructions</a> for installing Snakemake using Anaconda.</p>
+<p>Once you have installed Snakemake (including on the cluster), you should be able to start up the Snakemake environment with the shell command:</p>
+<p><code>conda activate snakemake</code></p>
+</section>
+<section id="data-for-this-lab" class="level3">
+<h3 class="anchored" data-anchor-id="data-for-this-lab">Data for this lab</h3>
+<p>If you are working on the Hood cluster, you can copy the data for this lab from <code>/home/johnson/lab8_data</code>, or you can fetch the data from <a href="https://ndownloader.figshare.com/files/35058796">figshare</a> and unzip locally.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+What can you learn from the FASTQ files in <code>yeast/reads</code> using the tools we learned last week?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The sample dataset represents a transcriptomics experiment in brewer’s yeast (Saccharomyces cerevisiae) under three conditions:</p>
+<ul>
+<li>etoh60 - Treated with 60% ethanol</li>
+<li>temp33 - Treated at 33 degrees celsius</li>
+<li>ref - Untreated</li>
+</ul>
+<p>For each condition there are 3 repeats, making 9 total samples. For each, total RNA (or rather, cDNA) was sequenced on an Illumina HiSeq instrument. For each repeat there is a pair of files as the sequencing is double-ended, so for example <code>reads/etoh60_3_2.fq</code> contains the second of the read pairs from the third ethanol-treated sample.</p>
+<p>Don’t worry about the biological meaning of this set-up. We’re only going to get as far as assessing the quality of the data and a very preliminary analysis. The data has been subsampled to a fraction of the original size to make filtering and alignment operations fast, so any deeper analysis is not going to yield meaningful results.</p>
+<p>As well as the reads, we have a transcriptome for the yeast. This comes in a single FASTA file (as opposed to the cDNA reads which are in FASTQ format) which has been GZip compressed.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="your-first-snakefile" class="level2">
+<h2 class="anchored" data-anchor-id="your-first-snakefile">Your first Snakefile <!-- https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/01-introduction/index.html --></h2>
+<p>Within the <code>yeast</code> directory, edit a new text file named <code>Snakefile</code>.</p>
+<p>Contents of <code>Snakefile</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{code}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rule countlines<span class="op">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  output<span class="op">:</span> <span class="st">"ref1_1.fq.count"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  input<span class="op">:</span>  <span class="st">"reads/ref1_1.fq"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  shell<span class="op">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"wc -l reads/ref1_1.fq &gt; ref1_1.fq.count"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once you have your Snakefile, execute it with the following command:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-j1</span> <span class="at">-p</span> ref1_1.fq.count</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Challenge 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run <code>snakemake --help | less</code> to see the help for all available options. What does the <code>-p</code> option in the <code>snakemake</code> command above do?</p>
+<ol type="1">
+<li>Protects existing output files</li>
+<li>Prints the shell commands that are being run to the terminal</li>
+<li>Tells Snakemake to only run one process at a time</li>
+<li>Prompts the user for the correct input file</li>
+</ol>
+</div>
+</div>
+<p>Remember that each FASTQ entry is made up of four lines. This code will output the number of reads, rather than the total number of lines in the file:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(($(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span>reads/ref1_1.fq<span class="va">)</span> <span class="op">/</span> <span class="dv">4</span><span class="va">))</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Challenge 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Modify <code>Snakefile</code> such that:</p>
+<ul>
+<li>outputs the number of reads in <code>reads/ref1_1.fq</code></li>
+<li>has a second rule to count the number of reads in <code>reads/ref1_1.fq</code></li>
+</ul>
+</div>
+</div>
+<p>Running your Snakefile again should result in two output files:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-j1</span> <span class="at">-p</span> ref1_1.fq.count etoh60_1_1.fq.count</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="placeholders-and-wildcards" class="level2">
+<h2 class="anchored" data-anchor-id="placeholders-and-wildcards">Placeholders and Wildcards <!-- https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/02-placeholders/index.html --></h2>
+<p>In the previous episode you wrote two rules to count the sequences in two files. These work, but they are not a very efficient use of Snakemake. We have eighteen input files to process and we don’t want to write eighteen near-identical rules!</p>
+<p>To make a more general-purpose rule we need placeholders and wildcards. Here is a new rule that will count the sequences in any of the <code>.fq</code> files.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{code}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="er"># New generic read counter</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rule countreads<span class="op">:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  output<span class="op">:</span> <span class="st">"{sample}.fq.count"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  input<span class="op">:</span>  <span class="st">"reads/{sample}.fq"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  shell<span class="op">:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"echo $(( $(wc -l &lt;{input}) / 4 )) &gt; {output}"</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Challenge 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Our rule puts the sequence counts into output files named like <code>ref1_1.fq.count</code>. How would you have to change the “countreads” rule definition if you wanted:</p>
+<ol type="1">
+<li>the output file for <code>reads/ref1_1.fq</code> to be <code>counts/ref1_1.txt</code>?</li>
+<li>the output file for <code>reads/ref1_1.fq</code> to be <code>ref1_counts/fq.1.count</code> (for <code>reads/ref1_2.fq</code> to be <code>ref1_counts/fq.2.count</code>, etc.)?</li>
+<li>the output file for <code>reads/ref1_1.fq</code> to be <code>countreads_1.txt</code>?</li>
+</ol>
+</div>
+</div>
+<section id="order-of-operations" class="level3">
+<h3 class="anchored" data-anchor-id="order-of-operations">Order of operations</h3>
+<p>We’re only just getting started with some simple rules, but it’s worth thinking about exactly what Snakemake is doing when you run it. There are three distinct phases:</p>
+<ol type="1">
+<li>Prepares to run:
+<ol type="1">
+<li>Reads in all the rule definitions from the Snakefile</li>
+</ol></li>
+<li>Plans what to do:
+<ol type="1">
+<li>Sees what file(s) you are asking it to make</li>
+<li>Looks for a matching rule by looking at the outputs of all the rules it knows</li>
+<li>Fills in the wildcards to work out the input for this rule</li>
+<li>Checks that this input file is actually available</li>
+</ol></li>
+<li>Runs the steps:
+<ol type="1">
+<li>Creates the directory for the output file, if needed</li>
+<li>Removes the old output file if it is already there</li>
+<li>Only then, runs the shell command with the placeholders replaced</li>
+<li>Checks that the command ran without errors and made the new output file as expected</li>
+</ol></li>
+</ol>
+<p>For example, if we now ask Snakemake to generate a file named <code>wibble_1.fq.count</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> wibble_1.fq.count</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Snakemake sees that a file with a name like this could be produced by the countreads rule. However, when it performs the wildcard substitution it sees that the input file would need to be named <code>reads/wibble_1.fq</code>, and there is no such file available. Therefore Snakemake stops and gives an error before any commands are run.</p>
+</section>
+<section id="dry-run-mode" class="level3">
+<h3 class="anchored" data-anchor-id="dry-run-mode">Dry-run mode</h3>
+<p>It’s often useful to run just the first two phases, so that Snakemake will plan out the jobs to run, and print them to the screen, but never actually run them. This is done with the <code>-n</code> flag, eg:</p>
+<p><code>snakemake -n -p temp33_1_1.fq.count</code></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Challenge 4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here is a command that will trim and filter low quality reads from a FASTQ file.</p>
+<p><code>fastq_quality_trimmer -t 20 -l 100 -o output.fq &lt;input.fq</code></p>
+<p>Add a second rule to your Snakefile to run this trimmer. You should make it so that valid outputs are files with the same name as the input, but in a subdirectory named ‘trimmed’, for example:</p>
+<ul>
+<li><code>trimmed/ref1_1.fq</code></li>
+<li><code>trimmed/temp33_1_1.fq</code></li>
+<li>etc.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="chaining-rules" class="level2">
+<h2 class="anchored" data-anchor-id="chaining-rules">Chaining Rules <!-- https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/03-chaining_rules/index.html --></h2>
+<p>We now have a “trimreads” rule and a “countreads” rule. The problem is there is no good way to use these rules together, that is, to trim an input file and then count the reads in the trimmed file. The countreads rule only takes input reads from the reads directory, whereas the trimreads rule puts all results into the trimmed directory.</p>
+<p>Chaining rules in Snakemake is a matter of choosing filename patterns that connect the rules. There’s something of an art to it - most times there are several options that will work.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Challenge 5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Modify your <em>countreads</em> rule such that we can supply <code>snakemake</code> with “trimmed.ref1_1.fq.count” and get the following outputs: * <code>trimmed/ref1_1.fq</code> * <code>ref1_1.trimmed.fq</code></p>
+</div>
+</div>
+<p>Try it out!</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-j1</span> <span class="at">-p</span> trimmed.ref1_1.fq.count</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<!-- go through example and have the class break into groups to discuss their own pipeline -->
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Group discussion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Think about any data processing task you have done yourself, and write down three or four steps from that workflow.</p>
+<p>What were the inputs to, and outputs from, each step?</p>
+<p>How did the steps connect up, in terms of data going from one to the next? You may want to sketch this out and use arrows to indicate the linkages between the steps.</p>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
