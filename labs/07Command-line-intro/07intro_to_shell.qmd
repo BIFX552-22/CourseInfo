@@ -70,7 +70,7 @@ Using the filesystem diagram below, if `pwd` displays `/Users/thing`, what will 
 -   `2012-12-01/ 2013-01-08/ 2013-01-27/`
 -   `original pnas_final pnas_sub`
 
-![File system challenge](img/07filesystem-challenge.png)
+![File system challenge](07filesystem-challenge.png)
 
 ## [Working with Files and Directories](https://datacarpentry.org/shell-genomics/03-working-with-files/index.html)
 
@@ -117,9 +117,6 @@ Find the line number in your history for the command that listed all the .sh fil
 
 -   Print out the contents of the `~/shell_data/untrimmed_fastq/SRR097977.fastq` file. What is the last line of the file?
 
-```{=html}
-<!-- -->
-```
     # insert code and output here
 
 From your home directory, and without changing directories, use one short command to print the contents of all of the files in the `~/shell_data/untrimmed_fastq` directory.
@@ -141,9 +138,6 @@ Starting in the `shell_data/untrimmed_fastq/` directory, do the following:
 -   Use a wildcard to move all of your backup files to a new backup directory.
 -   Change the permissions on all of your backup files to be write-protected.
 
-```{=html}
-<!-- -->
-```
     # insert code and output here
 
 ## [Redirection](https://datacarpentry.org/shell-genomics/04-redirection/index.html)
@@ -166,9 +160,6 @@ Starting in the `shell_data/untrimmed_fastq/` directory, do the following:
 
 -   Search for the sequence `AAGTT` in both FASTQ files. Have your search return all matching lines and the name (or identifier) for each sequence that contains a match.
 
-```{=html}
-<!-- -->
-```
     # insert code and output here
 
 #### Challenge 2

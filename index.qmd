@@ -82,8 +82,8 @@ proj_org <- '[Project Organization](https://datacarpentry.org/organization-genom
 ### Shell Genomics
 shell_genomics <- 'https://datacarpentry.org/shell-genomics/'
 shell_intro <- paste0('[Introducing the Shell](', shell_genomics, '01-introduction/index.html)')
-unix1       <- paste0('[Unix](',                  shell_genomics, ') (2 - 3)')
-unix2       <- paste0('[Advanced Unix](',         shell_genomics, ') (4 - 6)')
+unix1       <- paste0('[Unix](',                  shell_genomics, ') (1 - 3)')
+unix2       <- paste0('[Redirection](',           shell_genomics, '04-redirection/index.html)') # 4 only, and not for loops
 
 unix_loops  <- 'Loop and Script Practice'
 unix_regexp <- 'Regular Expressions Practice'
@@ -127,7 +127,7 @@ bioc_proj <- '[Bioconductor Project](https://carpentries-incubator.github.io/bio
 RNA_seq_setup <- '[RNA-seq Intro](https://carpentries-incubator.github.io/bioc-rnaseq/index.html) (1 - 4)'
 RNA_seq_analysis <- '[RNA-seq Analysis](https://carpentries-incubator.github.io/bioc-rnaseq/index.html) (5 - 7)'
 
-snakemake1 <- '[Snakemake Intro](https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)'
+snakemake1 <- '[Snakemake Intro](labs/08Snakemake)'#(https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)
 snakemake2 <- '[Advanced Snakemake](https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)'
 
 
@@ -154,15 +154,14 @@ matrix(dimnames = list(NULL, c('Week', 'Date', 'Topics', 'Lab')),
                  6, 'Sep 29', paste(Joining,
                                     RswTips,        sep = ', '), '[RNA-Seq Data](labs/06RNA-seq-data/rna-seq-data.html)',
                  7, 'Oct  6',      'Exam',                       'Midterm Exam',
-                 8, 'Oct 13', paste(shell_intro,
-                                    unix1, sep = ', '),    paste('Exam review',
-                                                                  proj_org),
-                 9, 'Oct 20',       unix2,                        dimensionality,
-                10, 'Oct 27',       wrangling,                    variant_calling,
-                11, 'Nov  3',       bioc_proj,                    bioc_annotation,
-                12, 'Nov 10',       RNA_seq_setup,                RNA_seq_analysis,
-                13, 'Nov 17',       snakemake1,                  'Snakemake Pipeline',
-                14, 'Nov 24',       snakemake2,                  'Thanksgiving, No Class',
+                 8, 'Oct 13',      '',                     paste('Exam review',
+                                                                  unix1),
+                 9, 'Oct 20',       unix2,                        snakemake1,
+                10, 'Oct 27',       wrangling,                    'Snakemake',
+                11, 'Nov  3',       variant_calling,              '',
+                12, 'Nov 10',       '',                '',
+                13, 'Nov 17',       '',                  '',
+                14, 'Nov 24',       '',                  'Thanksgiving, No Class',
                 15, 'Dec  1',      'Revew / Final Exam',         'Final Review',
                 16, 'Dec  8',      'Exam Due',                   '')) %>%
     kable()
