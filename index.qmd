@@ -90,8 +90,7 @@ unix_regexp <- 'Regular Expressions Practice'
 
 ### Wrangling Genomics
 wrangling_genomics <- 'https://datacarpentry.org/wrangling-genomics/'
-wrangling       <- paste0('[Data wrangling](',           wrangling_genomics, ') (1 - 3)')
-variant_calling <- paste0('[Variant Calling Workflow](', wrangling_genomics, '04-variant_calling/index.html)')
+variant_calling <- paste0('[Variant Calling Workflow](', wrangling_genomics, '04-variant_calling/index.html) (1 - 4)')
 
 ### Git
 git <- '[Git](https://swcarpentry.github.io/git-novice/) (1 - 9)'
@@ -157,8 +156,8 @@ matrix(dimnames = list(NULL, c('Week', 'Date', 'Topics', 'Lab')),
                  8, 'Oct 13',      '',                     paste('Exam review',
                                                                   unix1),
                  9, 'Oct 20',       unix2,                        snakemake1,
-                10, 'Oct 27',       wrangling,                    'Snakemake',
-                11, 'Nov  3',       variant_calling,              '',
+                10, 'Oct 27',       variant_calling,                    '[Variant Calling Pipeline](labs/09variant-calling-pipeline)',
+                11, 'Nov  3',       '',              '',
                 12, 'Nov 10',       '',                '',
                 13, 'Nov 17',       '',                  '',
                 14, 'Nov 24',       '',                  'Thanksgiving, No Class',
