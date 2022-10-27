@@ -128,8 +128,8 @@ bioc_proj2 <- paste0('[Intro to Bioconductor](', bioc_proj, ')(5 - 6)')
 RNA_seq_setup <- '[RNA-seq Intro](https://carpentries-incubator.github.io/bioc-rnaseq/index.html) (1 - 4)'
 RNA_seq_analysis <- '[RNA-seq Analysis](https://carpentries-incubator.github.io/bioc-rnaseq/index.html) (5 - 7)'
 
-snakemake1 <- '[Snakemake Intro](labs/08Snakemake)'#(https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)(1 - 3 or 4)
-snakemake2 <- '[Advanced Snakemake](https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)' # (5 - 9) (maybe do 6 in class?)
+snakemake1 <- '[Snakemake Intro](labs/08Snakemake)'#(https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)(1 - 3 or 4 as time allows)
+snakemake2 <- '[Advanced Snakemake](https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)' # (5, 7 - 9) cover 6 in lab 9
 
 
 # coding lab ideas for R (take a look at The Carpentries Lab - https://carpentries-lab.org/)

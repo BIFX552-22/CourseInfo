@@ -70,8 +70,9 @@ ul.task-list{list-style: none;}
 <ul>
 <li><code>fastqc -o qc trimmed_fastq/SRR2584863_1.fastq.gz</code></li>
 <li><code>fastqc -o qc trimmed_fastq/SRR2584863_2.fastq.gz</code></li>
+<li>Print any warnings and errors to <code>qc/SRR2584863_1.warnings</code>, <code>qc/SRR2584863_1.errors</code>, etc.</li>
 </ul></li>
-<li>Align reads to reference genome
+<li>Align reads to reference genome (use the <code>trimmed_fastq_small</code> directory during lab)
 <ul>
 <li><code>bwa mem data/ecoli_rel606.fasta data/trimmed_fastq/SRR2584863_1.trimmed.fastq data/trimmed_fastq_small/SRR2584863_2.trimmed.fastq &gt; results/sam/SRR2584863.aligned.sam</code></li>
 </ul></li>

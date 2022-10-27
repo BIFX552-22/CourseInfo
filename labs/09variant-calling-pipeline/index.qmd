@@ -15,11 +15,13 @@ During today's lab we will create a snakemake pipeline following the workflow ou
 * Trimming
   * `trimmomatic PE -threads 1 untrimmed_fastq/SRR2584863_1.fastq.gz untrimmed_fastq/SRR2584863_2.fastq.gz trimmed_fastq/SRR2584863_1.trimmed.fastq trimmed_fastq/SRR2584863_1un.trimmed.fastq trimmed_fastq/SRR2584863_2.trimmed.fastq trimmed_fastq/SRR2584863_2un.trimmed.fastq SLIDINGWINDOW:4:20 MINLEN:25 ILLUMINACLIP:untrimmed_fastq/NexteraPE-PE.fa:2:40:15`
 
+<!-- Cover section 6 of the Snakemake lesson during this part (see https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/06-awkward_programs/index.html) -->
 * Quality control checks
   * `fastqc -o qc trimmed_fastq/SRR2584863_1.fastq.gz`
   * `fastqc -o qc trimmed_fastq/SRR2584863_2.fastq.gz`
+  * Print any warnings and errors to `qc/SRR2584863_1.warnings`, `qc/SRR2584863_1.errors`, etc.
 
-* Align reads to reference genome
+* Align reads to reference genome (use the `trimmed_fastq_small` directory during lab)
   * `bwa mem data/ecoli_rel606.fasta data/trimmed_fastq/SRR2584863_1.trimmed.fastq data/trimmed_fastq_small/SRR2584863_2.trimmed.fastq > results/sam/SRR2584863.aligned.sam`
   
 * Convert to BAM file
