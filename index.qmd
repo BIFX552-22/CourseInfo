@@ -122,12 +122,14 @@ dimensionality <- '[Dimensionality Reduction](https://bioc2021.bioconductor.org/
 
 ### Other Carpentries
 bioc_proj <- '[Bioconductor Project](https://carpentries-incubator.github.io/bioc-project/index.html)'
+bioc_proj1 <- paste0('[Intro to Bioconductor](', bioc_proj, ')(1 - 4)')
+bioc_proj2 <- paste0('[Intro to Bioconductor](', bioc_proj, ')(5 - 6)')
 
 RNA_seq_setup <- '[RNA-seq Intro](https://carpentries-incubator.github.io/bioc-rnaseq/index.html) (1 - 4)'
 RNA_seq_analysis <- '[RNA-seq Analysis](https://carpentries-incubator.github.io/bioc-rnaseq/index.html) (5 - 7)'
 
-snakemake1 <- '[Snakemake Intro](labs/08Snakemake)'#(https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)
-snakemake2 <- '[Advanced Snakemake](https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)'
+snakemake1 <- '[Snakemake Intro](labs/08Snakemake)'#(https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)(1 - 3 or 4)
+snakemake2 <- '[Advanced Snakemake](https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/)' # (5 - 9) (maybe do 6 in class?)
 
 
 # coding lab ideas for R (take a look at The Carpentries Lab - https://carpentries-lab.org/)
@@ -156,11 +158,11 @@ matrix(dimnames = list(NULL, c('Week', 'Date', 'Topics', 'Lab')),
                  8, 'Oct 13',      '',                     paste('Exam review',
                                                                   unix1),
                  9, 'Oct 20',       unix2,                        snakemake1,
-                10, 'Oct 27',       variant_calling,                    '[Variant Calling Pipeline](labs/09variant-calling-pipeline)',
-                11, 'Nov  3',       '',              '',
-                12, 'Nov 10',       '',                '',
-                13, 'Nov 17',       '',                  '',
-                14, 'Nov 24',       '',                  'Thanksgiving, No Class',
+                10, 'Oct 27',       variant_calling,            '[Variant Calling Pipeline](labs/09variant-calling-pipeline)', # do this over two weeks with https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/05-expansion/index.html in-between, perhaps cover some of https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/06-awkward_programs/index.html between parts 1 and 2 as well. Finish with https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/11-assembly_challenge/index.html during class next week if there is time.
+                11, 'Nov  3',       snakemake2,                  'Variant Calling (cont)',
+                12, 'Nov 10',       bioc_proj1,                   bioc_proj2,
+                13, 'Nov 17',       RNA_seq_setup,                RNA_seq_analysis,
+                14, 'Nov 24',       dimensionality,              'Thanksgiving, No Class',
                 15, 'Dec  1',      'Revew / Final Exam',         'Final Review',
                 16, 'Dec  8',      'Exam Due',                   '')) %>%
     kable()
